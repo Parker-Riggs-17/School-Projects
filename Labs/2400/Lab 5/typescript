@@ -1,0 +1,14 @@
+Script started on 2023-02-15 19:04:56-05:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="120" LINES="30"]
+]0;priggs@DESKTOP-HBPM37U: ~/2400/Labs/lab5[01;32mpriggs@DESKTOP-HBPM37U[00m:[01;34m~/2400/Labs/lab5[00m$ dirmkdir Personaldir[K[K./a.out
+Enter temperature for day 1: 33
+Enter temperature for day 2: 44
+Enter temperature for day 3: 55
+Enter temperature for day 4: 66
+Enter temperature for day 5: 77
+Enter temperature for day 6: -11 00
+Highest temperature recorded was: 77
+Lowest temperature recroded was: 33
+]0;priggs@DESKTOP-HBPM37U: ~/2400/Labs/lab5[01;32mpriggs@DESKTOP-HBPM37U[00m:[01;34m~/2400/Labs/lab5[00m$ exit
+exit
+
+Script done on 2023-02-15 19:05:23-05:00 [COMMAND_EXIT_CODE="0"]
