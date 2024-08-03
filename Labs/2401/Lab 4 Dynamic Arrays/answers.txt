@@ -1,0 +1,49 @@
+/**
+ * @brief Use this file to enter the answers to the questions listed in README.md
+ * 
+ * @author 
+ * 
+ */
+
+Q1:
+2 4 6 8 10 12 14 
+2 4 6 5 10 15 14 Total bytes allocated = 120
+
+Q2: This is a problem because N1 was being displayed twice and even though we didn't do anything to N1 it is still changing the values inside of N1
+
+
+Q3: This problem is happening because both N1 and N2 are pointed at the same address so when you alter something in N2 its going to alter it somehow in N1 too. 
+
+
+Q4:
+2 4 6 8 10 12 14 
+2 4 6 8 10 12 14 Total bytes allocated = 120
+
+Q5: Yes, this is different than what I saw before, it is now the same line printed twice.
+
+Q6: On line 27 when you set N2 = N1, since we overloaded the = operator, N2 is no longer pointing to the same address as N1.
+
+Q7:
+0x557590be6240
+0x557590be6570
+0x557590be68a0
+0x557590be6bd0
+0x557590be6f00
+
+Total bytes allocated = 4120
+
+Q8: The addresses are 330 bytes apart 
+
+Q9: The following addresses are 0 bytes apart / they are the same.
+0x55ae7c2dcd40
+0x55ae7c2dcd40
+0x55ae7c2dcd40
+0x55ae7c2dcd40
+0x55ae7c2dcd40
+
+Q10: Total bytes allocated = 0
+
+
+Q11: Adding the deconstructor resulted in this behavior because it deallocated the bytes and attempts to find the next availiable address but because the bytes have been
+deallocated its giving back the same address over and over again.
+
