@@ -1,0 +1,61 @@
+/**
+ * @brief Use this file to enter the answers to the questions listed in README.md
+ * 
+ * @author 
+ * 
+ */
+
+Q1:
+*
+*
+*
+*
+*
+*
+
+
+Q2:
+*
+**
+***
+****
+*****
+******
+
+Q3:
+Making a variable static causes it to exist until the end of the program meaning
+x would start at 1 and then instead of resetting each iteration it would add 1 to x each time.
+
+Q4:
+When x was not static, it was resetting at 1 at the end of each iteration of the pretty()
+function. 
+
+Q5:
+First, I started by declaring a new int, and then I created a new pointer to an int,
+then I set my ptr equal to that of the new int I created which pointed my pointer towards
+new int. Address: 0x562537686ed0
+
+Q6:
+To print out the address of ptr we need to utilize the & function, to find the Address
+of ptr you need to print &ptr. Address: 0x7ffd46ebc780
+
+Q7:
+First line: 2402 Is stored at 0x56217fea6ed0
+Last line: 2411 Is stored at 0x56217fea6ed0
+
+Q8:
+Last Two Lines:
+842151729 Is stored at 0x5634b1880ef4
+1934172217 Is stored at 0x5634b1880ef8
+
+Q9:
+I see 5 numbers in the output and then I get an error message because used becomes
+equal to capacity.
+
+Q10:
+I see it run through the for loop 5 times, printing 5 different sets of numbers
+and then printing out resized.
+
+Q11:
+It goes through resized 5 times without printing any numbers in between and then 
+prints 25 random numbers followed by 5 zeroes.
