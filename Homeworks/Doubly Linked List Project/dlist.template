@@ -1,0 +1,259 @@
+/// BIG 3 FUNCTIONS ///
+template <class T>
+dlist<T>::~dlist(){
+    Dnode<T>* cursor;
+
+    while(head != nullptr){
+        cursor = head;
+        head = head -> next();
+        delete cursor;
+    }
+}
+
+template <class T>
+dlist<T>::dlist(const dlist& other){
+    if(other.head == nullptr){
+        head = nullptr;
+        return;
+    } else{
+        Dnode<T>* src;
+        head = new Dnode<T>(other.head -> data());
+        tail = head;
+
+        src = other.head -> next();
+        while(src != nullptr){
+            tail -> set_next(new Dnode<T>(src -> data()));
+            src = src -> next();
+            tail = tail -> next();
+        }
+    }
+}
+
+template <class T>
+dlist<T>& dlist<T>::operator = (const dlist<T>& other){
+    if(this == &other){ // Checks for self assignment
+        return *this;
+    }
+
+    // Delete old list
+    Dnode<T>* cursor;
+    while(head != nullptr){
+        cursor = head;
+        head = head -> next();
+        delete cursor;
+    }
+
+    //Make copy
+    if(other.head == nullptr){
+        head = nullptr;
+    } else{
+        Dnode<T>* src;
+        head = new Dnode<T>(other.head -> data());
+        tail = head;
+
+        src = other.head -> next();
+        while(src != nullptr){
+            tail -> set_next(new Dnode<T>(src -> data()));
+            src = src -> next();
+            tail = tail -> next();
+        }
+    }
+}
+
+
+/// OTHER FUNCTIONS ///
+template <class T>
+int dlist<T>::size(){
+    Dnode<T>* cursor = head;
+    int size = 0;
+    
+    while(cursor != nullptr){
+        size++;
+        cursor = cursor -> next();
+    }
+    return size;
+}
+
+template <class T>
+void dlist<T>::show(){
+    Dnode<T>* cursor = head;
+    while(cursor != nullptr){
+        std::cout << cursor -> data();
+        cursor = cursor -> next();
+    }
+}
+
+template <class T>
+void dlist<T>::reverse_show()const{
+    Dnode<T>* cursor = tail;
+    while(cursor -> prev() != nullptr){
+        std::cout << cursor -> data();
+        cursor = cursor -> prev();
+    }
+}
+
+template <class T>
+void dlist<T>::front_insert(int num){
+    Dnode<T>* tmp = new Dnode<T>(num);
+
+    if(head == nullptr){    // If list is empty
+        head = tmp;
+        tail = tmp;
+    } else{
+        head -> set_next(tmp);
+        tmp -> set_prev(nullptr);
+        head = tmp;
+    }
+}
+
+template <class T>
+void dlist<T>::rear_insert(int num){
+    Dnode<T>* tmp = new Dnode<T>(num);
+
+    if(head == nullptr){    // If list is empty
+        head = tmp;
+        tail = tmp;
+    } else{
+        tail -> set_next(tmp);
+        tmp -> set_prev(tail);
+        tail = tmp;
+    }
+}
+
+template <class T>
+void dlist<T>::front_remove(){  // List is empty nothing to remove
+    Dnode<T>* cursor;
+
+    if(head == nullptr){
+        return;
+    } else{
+        cursor = head;
+        head = head -> next();
+        delete cursor;
+    }
+}
+
+template <class T>
+void dlist<T>::rear_remove(){
+    if(tail == nullptr){    // List is empty nothing to remove
+        return;
+    }
+
+    Dnode<T>* cursor = tail -> prev();
+    delete tail;
+    tail = cursor;
+    if(tail != nullptr){
+        tail -> set_next(nullptr);
+    }
+}
+
+/// OTHER FUNCTIONS PT 2 ///
+template <class T>
+NODE_IT<T> dlist<T>::begin(){
+    return NODE_IT<T>(head);
+}
+
+template <class T>
+NODE_IT<T> dlist<T>::end(){
+    return NODE_IT<T>(tail -> next());
+}
+
+template <class T>
+NODE_IT<T> dlist<T>::r_begin(){
+    return NODE_IT<T>(tail);
+}
+
+template <class T>
+NODE_IT<T> dlist<T>::r_end(){
+return NODE_IT<T>(tail -> next());
+}
+
+template <class T>
+void dlist<T>::insert_before(NODE_IT<T> tmpIt, int num){
+    Dnode<T>* newNode = new Dnode<T>(num);
+
+    Dnode<T>* currentNode = tmpIt.get_current();
+    if(currentNode -> prev() == nullptr){   // If tmpIt is at the end of the list.
+        newNode -> set_next(tail);
+        newNode -> set_prev(tail -> prev());
+        currentNode -> prev() -> set_next(newNode);
+        currentNode -> set_prev(newNode);
+    } else{ 
+        newNode -> set_next(currentNode);
+        newNode -> set_prev(currentNode -> prev());
+        currentNode -> prev() -> set_next(newNode);
+        currentNode -> set_prev(newNode);
+    }
+}
+
+template <class T>
+void dlist<T>::insert_after(NODE_IT<T> tmpIt, int num){     // SEGMENTATION FAULT ???
+    Dnode<T>* newNode = new Dnode<T>(num);
+    Dnode<T>* currentNode = tmpIt.get_current();
+
+    if(currentNode != nullptr && currentNode -> next() != nullptr){
+        newNode -> set_next(currentNode -> next());
+        newNode -> set_prev(currentNode);
+        currentNode -> next() -> set_prev(newNode);
+        currentNode -> set_next(newNode);
+    } else{
+        if(currentNode == nullptr){ // If pointing towards ends of list
+            newNode -> set_next(nullptr);
+            newNode -> set_prev(tail -> prev());
+            tail -> prev() -> set_next(newNode);
+            tail -> set_prev(newNode);
+        } else{ // If pointing towards last node
+            newNode -> set_next(nullptr);
+            newNode -> set_prev(tail -> prev());
+            currentNode -> set_next(newNode);
+            tail -> set_prev(newNode);
+        }
+    }
+
+    // if(currentNode -> next() == nullptr){
+    //     newNode -> set_next(nullptr);
+    //     newNode -> set_prev(currentNode);
+    //     return;
+    // }
+    // newNode -> set_next(currentNode -> next());
+    // newNode -> set_prev(currentNode -> prev());
+
+    // if(currentNode == nullptr){ // If tmpIt is pointing to the end of the list
+    //     if(tail -> prev() != nullptr){
+    //         newNode -> set_prev(tail -> prev());
+    //         newNode -> set_next(tail);
+    //         tail -> prev() -> set_next(newNode);
+    //         tail -> set_prev(newNode);
+    //     } else{ // If list is empty
+    //         head -> set_next(newNode);
+    //         newNode -> set_prev(head);
+    //         newNode -> set_next(tail);
+    //         tail -> set_prev(newNode);
+    //     }
+    // } else{
+    //     newNode -> set_prev(currentNode);
+    //     newNode -> set_next(currentNode -> next());
+    //     if(currentNode -> next() != nullptr){
+    //         currentNode -> next() -> set_prev(newNode);
+    //     }
+    //     currentNode -> set_next(newNode);
+    // }
+}
+
+template <class T>
+void dlist<T>::remove(NODE_IT<T> tmpIt){
+    Dnode<T>* currentNode = tmpIt.get_current();
+
+    if(currentNode -> prev() == nullptr){   // First item in list
+        currentNode -> next() -> set_prev(nullptr);
+        delete tmpIt;
+        return;
+    } else if(currentNode -> next() == nullptr){    // Last item in list
+        currentNode -> prev() -> set_next(nullptr);
+        delete tmpIt;
+        return;
+    } else{ // Normal Case
+        currentNode -> prev() -> set_next(currentNode -> next());
+        currentNode -> next() -> set_prev(currentNode -> prev());
+    }   
+}
